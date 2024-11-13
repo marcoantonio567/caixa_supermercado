@@ -1,6 +1,7 @@
 import pandas as pd
 import random
 from datetime import datetime, timedelta
+import openpyxl
 
 # Gerar listas de produtos normais e eletrônicos
 nomes_produtos_normais = [
@@ -38,6 +39,15 @@ nomes_produtos_eletronicos = [
     "Aquário com Filtro Elétrico", "Robô Aspirador de Pó com Mapeamento"
 ]
 
+# Função para gerar status "Ativo" ou "Desativo"
+def gerar_status():
+    return random.choice(["Ativo", "Desativo"])
+
+# Função para gerar validade em formato de dias
+def gerar_validade():
+    dias = random.randint(1, 365)  # Quantidade de dias aleatórios
+    return f"{dias} dias"
+
 # Gerar dados dos produtos normais
 dados_produtos_normais = []
 for i in range(1, 101):
@@ -45,8 +55,9 @@ for i in range(1, 101):
         "Código do Produto": f"N{i:03}",
         "Nome do Produto": random.choice(nomes_produtos_normais),
         "Valor Unitário": round(random.uniform(5.0, 100.0), 2),
-        "Validade": (datetime.now() + timedelta(days=random.randint(30, 365))).strftime("%d/%m/%Y"),
-        "Quantidade": random.randint(1, 10)
+        "Validade": gerar_validade(),  # Usando a função para validade
+        "Quantidade": random.randint(1, 10),
+        "Status": gerar_status()  # Adicionando a coluna de status
     }
     dados_produtos_normais.append(produto)
 
@@ -58,7 +69,8 @@ for i in range(1, 101):
         "Nome do Produto": random.choice(nomes_produtos_eletronicos),
         "Valor Unitário": round(random.uniform(50.0, 5000.0), 2),
         "Garantia": f"{random.randint(6, 24)} meses",
-        "Quantidade": random.randint(1, 10)
+        "Quantidade": random.randint(1, 10),
+        "Status": gerar_status()  # Adicionando a coluna de status
     }
     dados_produtos_eletronicos.append(produto)
 
