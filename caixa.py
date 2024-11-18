@@ -1,4 +1,5 @@
 import locale
+from funcoes import *
 
 # Define a localidade para formatar o valor em formato brasileiro
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
@@ -8,41 +9,32 @@ class Caixa:
         # Inicializa o caixa com o valor inicial fornecido
         self.valor = valor_inicial
         # Dicionário para armazenar os produtos no estoque
-        self.estoque = {}
+        
         print(f"Caixa iniciado com {self.formatar_dinheiro(self.valor)}")
 
     def gerenciar_estoque(self):
-        # Método para gerenciar o estoque de produtos
-        while True:
-            print("\nGerenciar Estoque:")
-            print("1. Adicionar produto")
-            print("2. Atualizar quantidade")
-            print("3. Voltar")
-            try:
-                opcao = int(input("Escolha uma opção: "))
+       while True:
+           print('1. cadastrar produtos')
+           print('2. pesquisar produtos')
+           print('3. remover produtos')
+           print('4. voltar')
+           try:
+                opcao = int(input("Escolha uma opção (1 a 4): "))
                 if opcao == 1:
-                    # Adiciona um novo produto ao estoque
-                    produto = input("Nome do produto: ")
-                    quantidade = int(input("Quantidade: "))
-                    preco = float(input("Preço unitário: R$ "))
-                    self.estoque[produto] = {'quantidade': quantidade, 'preco': preco}
-                    print(f"Produto {produto} adicionado com sucesso!")
+                    adicionar_produto_interativo()
                 elif opcao == 2:
-                    # Atualiza a quantidade de um produto existente no estoque
-                    produto = input("Nome do produto a atualizar: ")
-                    if produto in self.estoque:
-                        quantidade = int(input("Quantidade a adicionar ou remover: "))
-                        self.estoque[produto]['quantidade'] += quantidade
-                        print(f"Estoque do produto {produto} atualizado para {self.estoque[produto]['quantidade']}.")
-                    else:
-                        print("Produto não encontrado no estoque.")
+                    pesquisando_produto()
                 elif opcao == 3:
-                    # Volta ao menu principal
+                    removendo_produtos()
+                elif opcao == 4:
                     break
                 else:
-                    print("Opção inválida.")
-            except ValueError:
-                print("Entrada inválida. Por favor, digite um número.")
+                    print("Opção inválida. Por favor, escolha de 1 a 4.")
+           except ValueError:
+                print("Entrada inválida. Por favor, digite um número (1 a 4).")
+
+
+           
 
     def vender_no_caixa(self):
         # Método para realizar uma venda no caixa
