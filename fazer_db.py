@@ -68,7 +68,7 @@ for i in range(1, 101):
         "Código do Produto": f"E{i:03}",
         "Nome do Produto": random.choice(nomes_produtos_eletronicos),
         "Valor Unitário": round(random.uniform(50.0, 5000.0), 2),
-        "Garantia": f"{random.randint(6, 24)} meses",
+        "Garantia": gerar_validade(),  # Usando a função para garantia
         "Quantidade": random.randint(1, 10),
         "Status": gerar_status()  # Adicionando a coluna de status
     }
