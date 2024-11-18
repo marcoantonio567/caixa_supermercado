@@ -57,10 +57,13 @@ def filtrar_produtos(aba_produtos, nome=None, quantidade=None, validade=None, co
         encontrou = True
     if not encontrou:
         print("nenhum produto encontrado nessa aba")
+        print("")
 def mostrar_produtos_filtrados(codigo=None, nome=None, quantidade=None, validade=None):
     print("Produtos Normais:")
+    print("")
     filtrar_produtos('Produtos Normais', nome, quantidade, validade, codigo)
     print("Produtos Eletrônicos:")
+    print("")
     filtrar_produtos('Produtos Eletrônicos', nome, quantidade, validade, codigo)
 def adicionar_produto(aba_produtos, codigo, nome, valor, validade, quantidade, status):
     planilha_produtos = openpyxl.load_workbook('produtos.xlsx')
