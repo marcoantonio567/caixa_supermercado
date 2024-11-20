@@ -85,7 +85,7 @@ def desativar_produto(codigo_produto):
         for linha in pagina_produtos.iter_rows(values_only=False, min_row=2):  # Iterar pelas células
             codigo_cell, nome_cell, valor_cell, validade_cell, quantidade_cell, status_cell = linha
 
-            if codigo_cell.value == codigo_produto and status_cell.value.lower() == 'ativo':
+            if codigo_cell.value.lower() == codigo_produto.lower() and status_cell.value == 'Ativo':
                 # Confirmar se o usuário deseja desativar
                 resposta = input(f"O produto '{nome_cell.value}' está ativo. Deseja desativá-lo? (s/n): ").strip().lower()
                 if resposta == 's':
