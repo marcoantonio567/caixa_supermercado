@@ -37,7 +37,7 @@ def filtrar_produtos(aba_produtos, nome=None, quantidade=None, validade=None, co
             continue
         if nome is not None and nome.lower() not in nome_produto.lower():
             continue
-        if quantidade is not None and quantidade <= quantidade_produto:
+        if quantidade is not None and quantidade < quantidade_produto:
             continue
         if validade is not None:
             dias_validade = extrair_dias(validade_produto)
@@ -55,16 +55,20 @@ def filtrar_produtos(aba_produtos, nome=None, quantidade=None, validade=None, co
         print(f"Status: {status}")
         print('-' * 40)  # Para separar visualmente cada produto
         encontrou = True
+        
     if not encontrou:
         print("nenhum produto encontrado nessa aba")
         print("")
+      
 def mostrar_produtos_filtrados(codigo=None, nome=None, quantidade=None, validade=None):
+   
     print("Produtos Normais:")
     print("")
     filtrar_produtos('Produtos Normais', nome, quantidade, validade, codigo)
     print("Produtos Eletrônicos:")
     print("")
     filtrar_produtos('Produtos Eletrônicos', nome, quantidade, validade, codigo)
+    
 def adicionar_produto(aba_produtos, codigo, nome, valor, validade, quantidade, status):
     planilha_produtos = openpyxl.load_workbook('produtos.xlsx')
     pagina_produtos = planilha_produtos[aba_produtos]
@@ -104,3 +108,4 @@ def desativar_produto(codigo_produto):
         planilha_produtos.save('produtos.xlsx')
     else:
         print("Produto não encontrado ou já desativado.")
+
