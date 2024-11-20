@@ -15,7 +15,7 @@ def input_usuario(texto, tipo=str):
                 return None
             return escolha
         except ValueError:
-            print("Entrada inválida, tente novamente.")
+            print("\nEntrada inválida, tente novamente.\n")
 def adicionar_produto_interativo():
     while True:
         print('1. para adcionar produtos normais')
@@ -44,7 +44,7 @@ def adicionar_produto_interativo():
         elif aba == 3:
             break
         else:
-            print('escolha uma opção valida')
+            print('\nescolha uma opção valida\n')
 def pesquisando_produto():
     while True:
         print('1. Para pesquisar por nome')  
@@ -66,10 +66,10 @@ def pesquisando_produto():
         elif escolha == 4:
             break
         else:
-            print('escolha uma opção valida')
+            print('\nescolha uma opção valida\n')
 def removendo_produtos():
     while True:
-        print('realemnte deseja algum produto?')
+        print('realmente deseja algum produto?')
         print('1. proseguir')  
         print('2. Voltar')
     
@@ -81,7 +81,6 @@ def removendo_produtos():
         elif escolha == 2:
             break
         else:
-            print('escolha uma opção valida')
+            print('\nescolha uma opção valida\n')
 
 
-removendo_produtos()
