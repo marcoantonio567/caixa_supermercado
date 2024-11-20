@@ -1,17 +1,11 @@
-import locale
 from funcoes import *
-
-# Define a localidade para formatar o valor em formato brasileiro
-locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 class Caixa:
     def __init__(self, valor_inicial):
-        # Inicializa o caixa com o valor inicial fornecido
-        self.valor = valor_inicial
-        # Dicionário para armazenar os produtos no estoque
+        requests_caixa(valor=valor_inicial,request='post')
         
-        print(f"Caixa iniciado com {self.formatar_dinheiro(self.valor)}")
-
+        print(f"Caixa iniciado com {requests_caixa(request='get')}")
+    
     def gerenciar_estoque(self):
        while True:
             print('1. cadastrar produtos')
@@ -38,21 +32,25 @@ class Caixa:
     def vender_no_caixa(self):
         # Método para realizar uma venda no caixa
         print("\nVender no Caixa:")
-        produto = input("Nome do produto: ")
-        if produto in self.estoque:
-            quantidade = int(input("Quantidade a vender: "))
-            if quantidade <= self.estoque[produto]['quantidade']:
-                # Calcula o valor total da venda e atualiza o valor do caixa
-                total = quantidade * self.estoque[produto]['preco']
-                self.valor += total
-                # Atualiza a quantidade do produto no estoque
-                self.estoque[produto]['quantidade'] -= quantidade
-                print(f"Venda realizada com sucesso. Valor total: {self.formatar_dinheiro(total)}")
-            else:
-                print("Quantidade insuficiente no estoque.")
+        
+        #adcionar codigo do produto
+        #adcionar quantidade do produto
+        #lista com o valor total
+        #editar compra
+        #finalizar compra
+        #atualizar quantidade
+        #mostrar lista de compras(cupom fiscal)
+        #realizar outra venda 
+        #voltar
+        codigo_prod = input_usuario('qual o codigo do produto: ',tipo=str)
+        mostrar_produtos_filtrados(codigo=codigo_prod) 
+        if mostrar_produtos_filtrados(codigo=codigo_prod) == 'find':
+            quantidade_prod = input_usuario('digite a quantidade do produto ',tipo=str)
+            requests_quantidade(codigo_produto=codigo_prod,quantidade=quantidade_prod,request='remove')
+        elif mostrar_produtos_filtrados(codigo=codigo_prod) == 'vazio':
+            print('este produto não esta disponivel')
         else:
-            print("Produto não encontrado no estoque.")
-
+            print('ajustar bug')
     def relatorios_dos_produtos(self):
         while True:
             print('1. pesquisar produtos de ate x dias')
@@ -73,12 +71,9 @@ class Caixa:
                 
     def fechar_caixa(self):
         # Método para fechar o caixa e mostrar o valor final
-        print(f"\nCaixa fechado com valor final de {self.formatar_dinheiro(self.valor)}")
+        print(f"\nCaixa fechado com valor final de {requests_caixa(request='get')}")
 
-    @staticmethod
-    def formatar_dinheiro(valor):
-        # Método para formatar o valor em formato monetário brasileiro
-        return locale.currency(valor, grouping=True)
+    
 
 def main():
     #valor inicial para abrir o caixa
