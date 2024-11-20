@@ -14,24 +14,23 @@ class Caixa:
 
     def gerenciar_estoque(self):
        while True:
-           print('1. cadastrar produtos')
-           print('2. pesquisar produtos')
-           print('3. remover produtos')
-           print('4. voltar')
-           try:
-                opcao = int(input("Escolha uma opção (1 a 4): "))
-                if opcao == 1:
-                    adicionar_produto_interativo()
-                elif opcao == 2:
-                    pesquisando_produto()
-                elif opcao == 3:
-                    removendo_produtos()
-                elif opcao == 4:
-                    break
-                else:
-                    print("Opção inválida. Por favor, escolha de 1 a 4.")
-           except ValueError:
-                print("Entrada inválida. Por favor, digite um número (1 a 4).")
+            print('1. cadastrar produtos')
+            print('2. pesquisar produtos')
+            print('3. remover produtos')
+            print('4. voltar')
+           
+            opcao = input_usuario("Escolha uma opção (1 a 4): ",tipo=int)
+            if opcao == 1:
+                adicionar_produto_interativo()
+            elif opcao == 2:
+                pesquisando_produto()
+            elif opcao == 3:
+                removendo_produtos()
+            elif opcao == 4:
+                break
+            else:
+                print("\nOpção inválida. Por favor, escolha de 1 a 4.\n")
+           
 
 
            
@@ -55,11 +54,23 @@ class Caixa:
             print("Produto não encontrado no estoque.")
 
     def relatorios_dos_produtos(self):
-        # Método para exibir um relatório dos produtos no estoque
-        print("\nRelatório dos Produtos:")
-        for produto, info in self.estoque.items():
-            print(f"Produto: {produto}, Quantidade: {info['quantidade']}, Preço Unitário: {self.formatar_dinheiro(info['preco'])}")
-
+        while True:
+            print('1. pesquisar produtos de ate x dias')
+            print('2. pesquisar produtos de ate x quantidade')
+            print('3. voltar')
+            opcao = input_usuario("Escolha uma opção (1 a 3): ",tipo=int)
+            if opcao == 1:
+                dias_prod = input_usuario('digite a quantidade de dias: ',tipo=int)
+                mostrar_produtos_filtrados(validade=dias_prod)
+            elif opcao == 2:
+                quantidade_prod = input_usuario('digite a quantidade: ',tipo=int)
+                mostrar_produtos_filtrados(quantidade=quantidade_prod)
+            elif opcao == 3:
+                break
+            else:
+                print("\nOpção inválida. Por favor, escolha de 1 a 3.\n")
+         
+                
     def fechar_caixa(self):
         # Método para fechar o caixa e mostrar o valor final
         print(f"\nCaixa fechado com valor final de {self.formatar_dinheiro(self.valor)}")
@@ -70,15 +81,11 @@ class Caixa:
         return locale.currency(valor, grouping=True)
 
 def main():
-    while True:
-        try:
-            # Solicita ao usuário o valor inicial para abrir o caixa
-            valor_inicial = float(input("Digite o valor para abrir o caixa: R$ "))
-            caixa = Caixa(valor_inicial)
-            break
-        except ValueError:
-            print("Entrada inválida. Por favor, digite um valor numérico.")
-
+    #valor inicial para abrir o caixa
+    valor_inicial = input_usuario("Digite o valor para abrir o caixa: R$ ",tipo=float)
+    caixa = Caixa(valor_inicial)
+            
+        
     # Menu principal do caixa
     while True:
         print("\nOpções do Caixa:")
@@ -86,26 +93,24 @@ def main():
         print("2. Vender no Caixa")
         print("3. Relatório dos Produtos")
         print("4. Fechar Caixa")
-        try:
-            opcao = int(input("Escolha uma opção (1 a 4): "))
-            if opcao == 1:
-                # Chama o método para gerenciar o estoque
-                caixa.gerenciar_estoque()
-            elif opcao == 2:
-                # Chama o método para realizar uma venda no caixa
-                caixa.vender_no_caixa()
-            elif opcao == 3:
-                # Chama o método para gerar o relatório dos produtos
-                caixa.relatorios_dos_produtos()
-            elif opcao == 4:
-                # Chama o método para fechar o caixa e encerra o programa
-                caixa.fechar_caixa()
-                break
-            else:
-                print("Opção inválida. Por favor, escolha de 1 a 4.")
-        except ValueError:
-            print("Entrada inválida. Por favor, digite um número (1 a 4).")
-
+        
+        opcao = input_usuario("Escolha uma opção (1 a 4): ",tipo=int)
+        if opcao == 1:
+            # Chama o método para gerenciar o estoque
+            caixa.gerenciar_estoque()
+        elif opcao == 2:
+            # Chama o método para realizar uma venda no caixa
+            caixa.vender_no_caixa()
+        elif opcao == 3:
+            # Chama o método para gerar o relatório dos produtos
+            caixa.relatorios_dos_produtos()
+        elif opcao == 4:
+            # Chama o método para fechar o caixa e encerra o programa
+            caixa.fechar_caixa()
+            break
+        else:
+            print("Opção inválida. Por favor, escolha de 1 a 4.")
+        
 
 if __name__ == "__main__":
     main()
