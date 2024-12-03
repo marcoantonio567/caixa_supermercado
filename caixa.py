@@ -32,25 +32,40 @@ class Caixa:
     def vender_no_caixa(self):
         # Método para realizar uma venda no caixa
         print("\nVender no Caixa:")
-        
-        #adcionar codigo do produto
-        #adcionar quantidade do produto
-        #lista com o valor total
-        #editar compra
-        #finalizar compra
-        #atualizar quantidade
-        #mostrar lista de compras(cupom fiscal)
-        #realizar outra venda 
-        #voltar
-        codigo_prod = input_usuario('qual o codigo do produto: ',tipo=str)
-        mostrar_produtos_filtrados(codigo=codigo_prod) 
-        if mostrar_produtos_filtrados(codigo=codigo_prod) == 'find':
-            quantidade_prod = input_usuario('digite a quantidade do produto ',tipo=str)
-            requests_quantidade(codigo_produto=codigo_prod,quantidade=quantidade_prod,request='remove')
-        elif mostrar_produtos_filtrados(codigo=codigo_prod) == 'vazio':
-            print('este produto não esta disponivel')
-        else:
-            print('ajustar bug')
+        lista_compras = []
+        while True:
+            print('1. adicionar codigo')
+            print('2. Voltar')
+            escolha = input_usuario('Escolha (1 ou 2): ',tipo=int)
+            if escolha == 1:
+                codigo_prod = input_usuario('qual o codigo do produto: ',tipo=str)
+                if mostrar_produtos_filtrados(codigo=codigo_prod) == 'find':
+                    quantidade_prod = input_usuario('digite a quantidade do produto: ',tipo=int)
+                    lista_compras.append((codigo_prod,quantidade_prod))
+                    total = buscar_preco_produtos(lista_compras)
+                    print(f'valor total {total}')
+                    while True:
+                        print('1. passar outro produto')
+                        print('2. finalizar compra')
+                        proxima_compra = input_usuario('Escolha (1 ou 2): ',tipo=int)
+                        if proxima_compra == 2:
+                            print(f'sua compra deu {total}')
+                            for produto in lista_compras:
+                                requests_quantidade(codigo_produto=produto[0],quantidade=quantidade_prod,request='remove')
+                            requests_caixa(valor=total,request='post')
+                            break
+                        elif proxima_compra == 1:
+                            print("redirecionando para passar a compra")
+                            break
+                        else:
+                            print("")
+    
+                elif mostrar_produtos_filtrados(codigo=codigo_prod) == 'nofind':
+                    print('este produto não esta disponivel ou o codigo está errado')
+            if escolha == 2:
+                break
+            else:
+                print("por favor escolha uma opção valida")  
     def relatorios_dos_produtos(self):
         while True:
             print('1. pesquisar produtos de ate x dias')
