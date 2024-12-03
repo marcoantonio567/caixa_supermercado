@@ -1,5 +1,6 @@
 from buscar_banco import *
 import locale
+import pandas as pd
 
 valor_caixa = 0
 @staticmethod
@@ -147,4 +148,22 @@ def requests_quantidade(codigo_produto,quantidade,request='remove'):
         planilha_produtos.save('produtos.xlsx')
     else:
         print("quantidade não atualizada.")
+def buscar_preco_produtos(lista_codigos):
+    # Carregar o arquivo Excel fornecido
+    file_path = 'produtos.xlsx'
+    # Carregar todas as abas do Excel em um dicionário de dataframes
+    produtos_dict = pd.read_excel(file_path, sheet_name=None)
+
+    # Concatenar todas as abas em um único dataframe
+    produtos_df = pd.concat(produtos_dict.values(), ignore_index=True)
+
+    valor_total = 0.0
+    for codigo_produto, quantidade in lista_codigos:
+        # Filtrar o dataframe para encontrar o produto com o código fornecido
+        produto = produtos_df[produtos_df['Código do Produto'] == codigo_produto.upper()]
+        
+        # Verificar se o produto foi encontrado
+        if not produto.empty:
+            valor_total += produto['Valor Unitário'].values[0] * quantidade
+    return round(valor_total, 2)
 
