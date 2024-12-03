@@ -1,6 +1,8 @@
 import openpyxl
 import re
 
+
+
 def get_all_products(aba_produtos):
     planilha_produtos = openpyxl.load_workbook('produtos.xlsx')
     pagina_produtos = planilha_produtos[aba_produtos]
@@ -59,16 +61,18 @@ def filtrar_produtos(aba_produtos, nome=None, quantidade=None, validade=None, co
     if not encontrou:
         print("nenhum produto encontrado nessa aba")
         print("")
-      
+        
 def mostrar_produtos_filtrados(codigo=None, nome=None, quantidade=None, validade=None):
-   
     print("Produtos Normais:")
     print("")
-    filtrar_produtos('Produtos Normais', nome, quantidade, validade, codigo)
+    variavel1 = filtrar_produtos('Produtos Normais', nome, quantidade, validade, codigo)
     print("Produtos Eletrônicos:")
     print("")
-    filtrar_produtos('Produtos Eletrônicos', nome, quantidade, validade, codigo)
-    
+    variavel2 = filtrar_produtos('Produtos Eletrônicos', nome, quantidade, validade, codigo)
+    if variavel1 or variavel2 is None:
+        return 'find'
+    else:
+        return 'nofind'
 def adicionar_produto(aba_produtos, codigo, nome, valor, validade, quantidade, status):
     planilha_produtos = openpyxl.load_workbook('produtos.xlsx')
     pagina_produtos = planilha_produtos[aba_produtos]
@@ -108,4 +112,5 @@ def desativar_produto(codigo_produto):
         planilha_produtos.save('produtos.xlsx')
     else:
         print("Produto não encontrado ou já desativado.")
+
 
