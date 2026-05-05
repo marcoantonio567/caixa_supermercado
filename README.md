@@ -17,3 +17,25 @@ Este é um sistema desenvolvido exclusivamente para **supermercados**, focado no
 ### 🚀 Como executar
 ```bash
 python main.py
+```
+
+
+# 🛒 Terminal Supermarket System
+
+## 🇺🇸 English
+
+### 📋 Description
+System developed for supermarkets that manages **inventory** and **sales**, running entirely through the **terminal**.
+
+### ⚙️ Features
+- Product registration (code, name, price, quantity)
+- Inventory inflow and outflow control
+- Sales recording with automatic calculation
+- Automatic inventory updates
+- Reports (low stock products, daily sales, revenue)
+- Data persistence through files
+- 100% command-line interface (CLI)
+
+### 🚀 How to run
+```bash
+python main.py
